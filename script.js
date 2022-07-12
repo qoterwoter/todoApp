@@ -1,32 +1,43 @@
 function submit(taskValue) {
-    let all = document.querySelector('.all')
-    let li = document.createElement('li')
-    li.classList = ''
+    let tasks = document.querySelector('.tasks')
+    let tr = document.createElement('tr')
+    let tdTitle= document.createElement('td')
+    tr.appendChild(tdTitle)
     let task = document.querySelector('.enterItem')
 
-
-    let deleteButton = document.createElement('a')
-    deleteButton.innerHTML = 'Delete'
+    let tdDelete = document.createElement('td')
+    let deleteButton = document.createElement('button')
+    deleteButton.innerHTML = 'Удалить'
+    deleteButton.type='submit'
     deleteButton.classList = 'btn btn-danger'
     deleteButton.addEventListener("click", deleteTask)
+    tdDelete.appendChild(deleteButton)
 
-    let taskDescription = document.createElement('p')
     if (task.value!='') {                                   // Написал чтобы можно было добавлять задачи в js коде
-        taskDescription.innerHTML = task.value
+        tdTitle.innerHTML = task.value
     } else {
-        taskDescription.innerHTML = taskValue
+        tdTitle.innerHTML = taskValue
     }
-    li.appendChild(taskDescription) 
-    li.appendChild(deleteButton)
+    tr.appendChild(tdTitle) 
+    tr.appendChild(tdDelete)
     task.value = ''                                         // Очистка input
 
-    all.appendChild(li)
+    tasks.appendChild(tr)
 }
 
 function deleteTask() {
-    let deletedList = document.querySelector('.deleted')
-    deletedList.appendChild(this.parentNode)
-    console.log(deletedList)
+    let deleteList = document.querySelector('.deleted')
+    let taskList = document.querySelector('.tasks')
+    if(this.classList.contains('btn-success')) {
+        this.classList = 'btn btn-danger'
+        this.innerHTML = 'Удалить'
+        taskList.appendChild(this.parentNode.parentNode)
+    } else {    
+        this.classList = 'btn btn-success'
+        this.innerHTML = 'Восстановить'
+        deleteList.appendChild(this.parentNode.parentNode)
+    }
+    this.addEventListener("click", restoreTask)
 }
 
-submit('First')
+submit('Первая')
