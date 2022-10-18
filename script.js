@@ -1,43 +1,45 @@
+const tasks = document.querySelector('.tasks')
+const deleteList = document.querySelector('.deleted')
+const taskList = document.querySelector('.tasks')
+
 function submit(taskValue) {
-    let tasks = document.querySelector('.tasks')
-    let tr = document.createElement('tr')
-    let tdTitle= document.createElement('td')
-    tr.appendChild(tdTitle)
+    let row = document.createElement('div')
+    row.classList = 'row w-50 mt-2'
+
+    let title = document.createElement('p')
+    title.classList = 'col-6'
     let task = document.querySelector('.enterItem')
 
-    let tdDelete = document.createElement('td')
     let deleteButton = document.createElement('button')
     deleteButton.innerHTML = 'Удалить'
-    deleteButton.type='submit'
-    deleteButton.classList = 'btn btn-danger'
+    deleteButton.classList = 'btn btn-danger col-4'
     deleteButton.addEventListener("click", deleteTask)
-    tdDelete.appendChild(deleteButton)
 
-    if (task.value!='') {                                   // Написал чтобы можно было добавлять задачи вызовом функции
-        tdTitle.innerHTML = task.value
+    if (task.value != '') { // Написал чтобы можно было добавлять задачи вызовом функции
+        title.innerHTML = task.value
     } else {
-        tdTitle.innerHTML = taskValue
+        title.innerHTML = taskValue
     }
-    tr.appendChild(tdTitle) 
-    tr.appendChild(tdDelete)
-    task.value = ''                                         // Очистка input
 
-    tasks.appendChild(tr)
+    row.appendChild(title)
+    row.appendChild(deleteButton)
+    task.value = '' // Очистка input
+
+    tasks.appendChild(row)
 }
 
 function deleteTask() {
-    let deleteList = document.querySelector('.deleted')
-    let taskList = document.querySelector('.tasks')
-    if(this.classList.contains('btn-success')) {
-        this.classList = 'btn btn-danger'
+    if (this.classList.contains('btn-success')) {
+        this.classList = 'btn btn-danger col-4'
         this.innerHTML = 'Удалить'
-        taskList.appendChild(this.parentNode.parentNode)
-    } else {    
-        this.classList = 'btn btn-success'
+        taskList.appendChild(this.parentNode)
+    } else {
+        this.classList = 'btn btn-success col-4'
         this.innerHTML = 'Восстановить'
-        deleteList.appendChild(this.parentNode.parentNode)
+        deleteList.appendChild(this.parentNode)
     }
     this.addEventListener("click", restoreTask)
 }
+
 
 submit('Первая')
