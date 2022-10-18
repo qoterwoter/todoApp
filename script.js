@@ -13,7 +13,7 @@ function submit(taskValue) {
     deleteButton.addEventListener("click", deleteTask)
     tdDelete.appendChild(deleteButton)
 
-    if (task.value!='') {                                   // Написал чтобы можно было добавлять задачи в js коде
+    if (task.value!='') {                                   // Написал чтобы можно было добавлять задачи вызовом функции
         tdTitle.innerHTML = task.value
     } else {
         tdTitle.innerHTML = taskValue
